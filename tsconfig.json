@@ -1,0 +1,13 @@
+{
+	"compilerOptions":
+	{
+		"target": "es6",
+		"sourceMap": false,
+		"outFile": "emerald.js",
+		"declaration": true
+	},
+	"exclude": [
+		"node_modules",
+		"bin"
+	]
+}
