@@ -1,0 +1,25 @@
+{
+  "name": "emerald-game-engine",
+  "version": "0.0.1",
+  "description": "a game engine",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kinifi/emerald-game-engine.git"
+  },
+  "author": "kinifi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kinifi/emerald-game-engine/issues"
+  },
+  "homepage": "https://github.com/kinifi/emerald-game-engine#readme",
+  "devDependencies": {
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-typescript": "^3.1.6",
+    "typescript": "^2.3.2"
+  }
+}
