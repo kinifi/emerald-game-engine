@@ -1,12 +1,13 @@
 var gulp = require("gulp"),
     ts = require("gulp-typescript")
-	del = require('del');
+	del = require('del')
+	fs = require('fs');
 
 {
 	var tsProject = ts.createProject('./tsconfig.json');
 	var bin = './bin';
 
-	gulp.task("ts", function()
+	gulp.task("build", function()
 	{
 		return tsProject.src()
 			.pipe(tsProject())
@@ -16,7 +17,19 @@ var gulp = require("gulp"),
 	gulp.task("clean", function()
 	{
 		del([bin]);
-	})
+		var dir = './bin';
+		if (!fs.exists(dir)){
+			fs.mkdir(dir);
+		}
+	});
+
+	gulp.task("create-bin", function()
+	{
+		var dir = './bin';
+		if (!fs.exists(dir)){
+			fs.mkdir(dir);
+		}
+	});
 
 	gulp.task("default", ["clean"], function()
 	{
