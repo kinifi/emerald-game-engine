@@ -32,15 +32,17 @@ class Emerald
 		this.deltaTime = fps / 1000;
 	}
 
-
+	//run the update method on all objects in the current scene
 	public Run()
 	{
+		// maybe move this to an init method
 		window.onload = () => 
 		{
 			
 		}
 	}
 
+	//run the draw method on all objects in the currect scene
 	public Render()
 	{
 		

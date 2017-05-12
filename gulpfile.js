@@ -17,18 +17,6 @@ var gulp = require("gulp"),
 	gulp.task("clean", function()
 	{
 		del([bin]);
-		var dir = './bin';
-		if (!fs.exists(dir)){
-			fs.mkdir(dir);
-		}
-	});
-
-	gulp.task("create-bin", function()
-	{
-		var dir = './bin';
-		if (!fs.exists(dir)){
-			fs.mkdir(dir);
-		}
 	});
 
 	gulp.task("default", ["clean"], function()
