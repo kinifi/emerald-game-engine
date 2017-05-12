@@ -14,6 +14,16 @@ var gulp = require("gulp"),
 			.pipe(gulp.dest(bin));
 	});
 
+	gulp.task("build-testing-example", function()
+	{
+		return gulp.src('./example/testing/src/*.ts')
+			.pipe(ts({
+				out: 'app.js'
+			}))
+			.pipe(gulp.dest('./example/testing'));
+	});
+
+
 	gulp.task("clean", function()
 	{
 		del([bin]);
