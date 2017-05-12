@@ -46,12 +46,7 @@ class Entity
 	/**
 	 * The current scene that the Entity is in
 	 */
-	// public scene:Scene;
-
-	/**
-	 * List of all Groups the Entity is in
-	 */
-	public groups:string[] = [];
+	public scene:Scene;
 	
 
 	constructor()
