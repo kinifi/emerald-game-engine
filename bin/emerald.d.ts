@@ -40,6 +40,30 @@ declare class Scene {
      */
     Remove(entity: Entity): Entity;
 }
+declare class Vector {
+    x: number;
+    y: number;
+    constructor(x?: number, y?: number);
+    set(x: number, y: number): Vector;
+    copy(v: Vector): Vector;
+    add(v: Vector): Vector;
+    sub(v: Vector): Vector;
+    mult(v: Vector): Vector;
+    div(v: Vector): Vector;
+    scale(s: number): Vector;
+    rotate(sin: number, cos: number): Vector;
+    clone(): Vector;
+    readonly length: number;
+    readonly normal: Vector;
+    normalize(): Vector;
+    static directions: Vector[];
+    static temp0: Vector;
+    static temp1: Vector;
+    static temp2: Vector;
+    private static _zero;
+    static readonly zero: Vector;
+}
+declare var Em: Emerald;
 declare class Emerald {
     static instance: Emerald;
     private name;
@@ -50,9 +74,8 @@ declare class Emerald {
     private canvas;
     private context;
     private container;
-    canvasScaled: any;
-    contextScaled: any;
     private _scale;
+    isSetup: boolean;
     readonly windowWidth: number;
     readonly windowHeight: number;
     fullscreen: boolean;
@@ -65,6 +88,10 @@ declare class Emerald {
      * @param fps the desired frame rate of the game window
      */
     constructor(name: string, width: number, height: number, fps: number);
+    /**
+     * Is called when window onload is done
+     */
+    Setup(): void;
     Run(): void;
     /**
      * DisableRightClick
@@ -85,14 +112,6 @@ declare class Emerald {
     /**
      * Gets the current scene object
      */
-    /**
-     * scales the canvas to a larger size in the given window
-     */
-    scale: number;
-    /**
-     * Toggle fullscreen on the canvas
-     */
-    ToggleFullscreen(): void;
     /**
      * onResize
      */
@@ -157,26 +176,4 @@ declare class Entity {
      */
     destroyed(): void;
 }
-declare class Vector {
-    x: number;
-    y: number;
-    constructor(x?: number, y?: number);
-    set(x: number, y: number): Vector;
-    copy(v: Vector): Vector;
-    add(v: Vector): Vector;
-    sub(v: Vector): Vector;
-    mult(v: Vector): Vector;
-    div(v: Vector): Vector;
-    scale(s: number): Vector;
-    rotate(sin: number, cos: number): Vector;
-    clone(): Vector;
-    readonly length: number;
-    readonly normal: Vector;
-    normalize(): Vector;
-    static directions: Vector[];
-    static temp0: Vector;
-    static temp1: Vector;
-    static temp2: Vector;
-    private static _zero;
-    static readonly zero: Vector;
-}
+declare function gamesetup(): void;

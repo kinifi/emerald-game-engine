@@ -50,207 +50,6 @@ class Scene {
         return entity;
     }
 }
-/// <reference path="scene.ts"/>
-// the engine
-class Emerald {
-    /**
-     * Create a game window
-     * @param name the name of the game window
-     * @param width the width of the game window
-     * @param height the height of the game window
-     * @param fps the desired frame rate of the game window
-     */
-    constructor(name, width, height, fps) {
-        // current game scale (when not full-screen)
-        this._scale = 1;
-        //is the game fullscreen?
-        this.fullscreen = false;
-        // set static references
-        Emerald.instance = this;
-        // define self
-        this.name = name;
-        this.width = width;
-        this.height = height;
-        this.fps = fps;
-        this.deltaTime = fps / 1000;
-    }
-    // screen size
-    get windowWidth() { return document.documentElement.clientWidth; }
-    get windowHeight() { return document.documentElement.clientHeight; }
-    //run the update method on all objects in the current scene
-    Run() {
-        // maybe move this to an init method
-        window.onload = () => {
-            // bg
-            document.title = this.name;
-            document.body.style.backgroundColor = "#222";
-            // create the container ... can ignore this later, maybe
-            this.container = document.createElement("div");
-            this.container.style.width = (this.width * this.scale) + "px";
-            this.container.style.height = (this.height * this.scale) + "px";
-            this.container.style.margin = "auto";
-            this.container.style.marginTop = ((this.windowHeight - this.height * this.scale) / 2) + "px";
-            this.container.style.boxShadow = "0px 0px 128px #444";
-            this.container.style.border = "1px solid #222";
-            document.body.appendChild(this.container);
-            // create the visible canvas
-            this.canvasScaled = document.createElement("canvas");
-            this.canvasScaled.width = this.width * this.scale;
-            this.canvasScaled.height = this.height * this.scale;
-            this.container.appendChild(this.canvasScaled);
-            // get context
-            this.contextScaled = this.canvasScaled.getContext("2d");
-            this.context = this.canvas.getContext("2d");
-            //disable right clicking
-            this.DisableRightClick();
-            // on window resize
-            window.onresize = () => {
-                this.container.style.marginTop = ((this.windowHeight - this.height * this.scale) / 2) + "px";
-                if (this.fullscreen) {
-                    this.canvasScaled.width = this.windowWidth;
-                    this.canvasScaled.height = this.windowHeight;
-                }
-                if (this.onResize)
-                    this.onResize();
-            };
-            // we've started
-            if (this.onStart != null)
-                this.onStart();
-        };
-    }
-    /**
-     * DisableRightClick
-     */
-    DisableRightClick() {
-        // disable right click on scaled visible canvas
-        this.canvasScaled.oncontextmenu = (e) => {
-            e.preventDefault();
-        };
-    }
-    //run the draw method on all objects in the currect scene
-    Render() {
-    }
-    /**
-     * onStart
-     */
-    onStart() {
-        console.log('Emerald Started');
-    }
-    /**
-     * Gets the current scene object
-     */
-    get scene() {
-        return this._scene;
-    }
-    /**
-     * Sets the current scene object
-     */
-    set scene(value) {
-        this.scene = value;
-    }
-    /**
-     * Gets the current scene object
-     */
-    get scale() {
-        return this.scale;
-    }
-    /**
-     * scales the canvas to a larger size in the given window
-     */
-    set scale(value) {
-        this._scale = value;
-        this.container.style.marginTop = ((this.windowHeight - this.height * this.scale) / 2) + "px";
-        this.container.style.width = (this.width * this._scale) + "px";
-        this.container.style.height = (this.height * this._scale) + "px";
-        if (!this.fullscreen) {
-            this.canvasScaled.width = this.width * this._scale;
-            this.canvasScaled.height = this.height * this._scale;
-        }
-    }
-    /**
-     * Toggle fullscreen on the canvas
-     */
-    ToggleFullscreen() {
-        if (this.fullscreen) {
-            this.canvasScaled.style.position = "relative";
-            this.canvasScaled.width = this.width * this.scale;
-            this.canvasScaled.height = this.height * this.scale;
-        }
-        else {
-            this.canvasScaled.style.position = "absolute";
-            this.canvasScaled.style.left = "0px";
-            this.canvasScaled.style.top = "0px";
-            this.canvasScaled.width = this.windowWidth;
-            this.canvasScaled.height = this.windowHeight;
-        }
-        this.fullscreen = !this.fullscreen;
-    }
-    /**
-     * onResize
-     */
-    onResize() {
-        //TODO figure out what do here
-    }
-}
-class Entity {
-    constructor() {
-        /**
-         * Position of the Entity in the Scene
-         */
-        this.position = new Vector(0, 0);
-        /**
-         * If the Entity is visible. If false, Entity.render is not called
-         */
-        this.visible = true;
-        /**
-         * If the Entity is active. If false, Entity.update is not called
-         */
-        this.active = true;
-        /**
-         * If the Entity has been created yet (has it ever been added to a scene)
-         */
-        this.isCreated = false;
-        /**
-         * If the Entity has been started yet (has it been updated in the current scene)
-         */
-        this.isStarted = false;
-    }
-    /**
-     * X position of the Entity in the Scene
-     */
-    get x() { return this.position.x; }
-    set x(val) { this.position.x = val; }
-    /**
-     * Y position of the Entity in the Scene
-     */
-    get y() { return this.position.y; }
-    set y(val) { this.position.y = val; }
-    /**
-     * Called the first time the entity is added to a scene (after constructor, before added)
-     */
-    created() {
-    }
-    /**
-     * Called immediately whenever the entity is added to a Scene (after created, before started)
-     */
-    added() {
-    }
-    /**
-     * Called before the first update of the Entity (after added)
-     */
-    started() {
-    }
-    /**
-     * Called immediately whenever the entity is removed from a Scene
-     */
-    removed() {
-    }
-    /**
-     * Called when an entity is permanently destroyed
-     */
-    destroyed() {
-    }
-}
 class Vector {
     constructor(x, y) {
         this.x = 0;
@@ -338,3 +137,209 @@ Vector.temp0 = new Vector();
 Vector.temp1 = new Vector();
 Vector.temp2 = new Vector();
 Vector._zero = new Vector();
+/// <reference path="scene.ts"/>
+/// <reference path="./utils/vector.ts"/>
+//global shortbut to the emerald class
+// Global shortform reference to the Ambient app
+var Em;
+// the engine
+class Emerald {
+    /**
+     * Create a game window
+     * @param name the name of the game window
+     * @param width the width of the game window
+     * @param height the height of the game window
+     * @param fps the desired frame rate of the game window
+     */
+    constructor(name, width, height, fps) {
+        // current game scale (when not full-screen)
+        this._scale = 1;
+        this.isSetup = false;
+        //is the game fullscreen?
+        this.fullscreen = false;
+        // set static references
+        Emerald.instance = this;
+        Em = this;
+        // define self
+        this.name = name;
+        this.width = width;
+        this.height = height;
+        this.fps = fps;
+        this.deltaTime = fps / 1000;
+        console.log('Emerald - Starting Setup');
+    }
+    // screen size
+    get windowWidth() { return document.documentElement.clientWidth; }
+    get windowHeight() { return document.documentElement.clientHeight; }
+    /**
+     * Is called when window onload is done
+     */
+    Setup() {
+        // maybe move this to an init method
+        window.onload = () => {
+            // bg
+            document.title = this.name;
+            this.canvas = document.getElementById('canvas');
+            this.context = this.canvas.getContext("2d");
+            console.log("Emerald - Setup Complete");
+            //disable right clicking
+            this.DisableRightClick();
+            this.isSetup = true;
+            Em.Run();
+        };
+    }
+    //run the update method on all objects in the current scene
+    Run() {
+        //is the game actually setup before we call run?
+        if (!Em.isSetup) {
+            return;
+        }
+        requestAnimationFrame(Em.Run);
+        console.log('run');
+    }
+    /**
+     * DisableRightClick
+     */
+    DisableRightClick() {
+        // disable right click on scaled visible canvas
+        this.canvas.oncontextmenu = (e) => {
+            e.preventDefault();
+        };
+    }
+    //run the draw method on all objects in the currect scene
+    Render() {
+    }
+    /**
+     * onStart
+     */
+    onStart() {
+        console.log('Emerald Started');
+    }
+    /**
+     * Gets the current scene object
+     */
+    get scene() {
+        return this._scene;
+    }
+    /**
+     * Sets the current scene object
+     */
+    set scene(value) {
+        this.scene = value;
+    }
+    /**
+     * Gets the current scene object
+     */
+    // public get scale():number
+    // {
+    // 	return this.scale;
+    // }
+    // /**
+    //  * scales the canvas to a larger size in the given window
+    //  */
+    // public set scale(value:number)
+    // {
+    // 	this._scale = value;
+    // 	this.container.style.marginTop = ((this.windowHeight - this.height * this.scale) / 2) + "px";
+    // 	this.container.style.width = (this.width * this._scale) + "px";
+    // 	this.container.style.height = (this.height * this._scale) + "px";
+    // 	if (!this.fullscreen)
+    // 	{
+    // 		this.canvasScaled.width = this.width * this._scale;
+    // 		this.canvasScaled.height = this.height * this._scale;
+    // 	}
+    // }
+    // /**
+    //  * Toggle fullscreen on the canvas
+    //  */
+    // public ToggleFullscreen()
+    // {
+    // 	if  (this.fullscreen)
+    // 	{
+    // 		this.canvasScaled.style.position = "relative";
+    // 		this.canvasScaled.width = this.width * this.scale;
+    // 		this.canvasScaled.height = this.height * this.scale;
+    // 	}
+    // 	else
+    // 	{
+    // 		this.canvasScaled.style.position = "absolute";
+    // 		this.canvasScaled.style.left = "0px";
+    // 		this.canvasScaled.style.top = "0px";
+    // 		this.canvasScaled.width = this.windowWidth;
+    // 		this.canvasScaled.height = this.windowHeight;
+    // 	}
+    // 	this.fullscreen = !this.fullscreen;
+    // }
+    /**
+     * onResize
+     */
+    onResize() {
+        //TODO figure out what do here
+    }
+}
+class Entity {
+    constructor() {
+        /**
+         * Position of the Entity in the Scene
+         */
+        this.position = new Vector(0, 0);
+        /**
+         * If the Entity is visible. If false, Entity.render is not called
+         */
+        this.visible = true;
+        /**
+         * If the Entity is active. If false, Entity.update is not called
+         */
+        this.active = true;
+        /**
+         * If the Entity has been created yet (has it ever been added to a scene)
+         */
+        this.isCreated = false;
+        /**
+         * If the Entity has been started yet (has it been updated in the current scene)
+         */
+        this.isStarted = false;
+    }
+    /**
+     * X position of the Entity in the Scene
+     */
+    get x() { return this.position.x; }
+    set x(val) { this.position.x = val; }
+    /**
+     * Y position of the Entity in the Scene
+     */
+    get y() { return this.position.y; }
+    set y(val) { this.position.y = val; }
+    /**
+     * Called the first time the entity is added to a scene (after constructor, before added)
+     */
+    created() {
+    }
+    /**
+     * Called immediately whenever the entity is added to a Scene (after created, before started)
+     */
+    added() {
+    }
+    /**
+     * Called before the first update of the Entity (after added)
+     */
+    started() {
+    }
+    /**
+     * Called immediately whenever the entity is removed from a Scene
+     */
+    removed() {
+    }
+    /**
+     * Called when an entity is permanently destroyed
+     */
+    destroyed() {
+    }
+}
+/// <reference path="engine.ts"/>
+function gamesetup() {
+    var e = new Emerald("test", 180, 180, 60);
+    e.Setup();
+    e.Run();
+}
+gamesetup();

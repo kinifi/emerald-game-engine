@@ -16,12 +16,13 @@ var gulp = require("gulp"),
 
 	gulp.task("build-testing-example", function()
 	{
-		return gulp.src('./example/testing/src/*.ts')
-			.pipe(ts({
-				out: 'app.js'
-			}))
-			.pipe(gulp.dest('./example/testing'));
+		return gulp.src('./example/testing/*.ts')
+        .pipe(ts({
+            out: 'app.js'
+        }))
+        .pipe(gulp.dest('./example/testing'));
 	});
+ 
 
 
 	gulp.task("clean", function()
