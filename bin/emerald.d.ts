@@ -6,10 +6,55 @@ declare class Emerald {
     private fps;
     private deltaTime;
     private canvas;
-    private ctx;
+    private context;
+    private container;
+    canvasScaled: any;
+    contextScaled: any;
+    private _scale;
+    readonly windowWidth: number;
+    readonly windowHeight: number;
+    fullscreen: boolean;
+    _scene: Scene;
+    /**
+     * Create a game window
+     * @param name the name of the game window
+     * @param width the width of the game window
+     * @param height the height of the game window
+     * @param fps the desired frame rate of the game window
+     */
     constructor(name: string, width: number, height: number, fps: number);
     Run(): void;
+    /**
+     * DisableRightClick
+     */
+    DisableRightClick(): void;
     Render(): void;
+    /**
+     * onStart
+     */
+    onStart(): void;
+    /**
+     * Gets the current scene object
+     */
+    /**
+     * Sets the current scene object
+     */
+    scene: Scene;
+    /**
+     * Gets the current scene object
+     */
+    /**
+     * scales the canvas to a larger size in the given window
+     */
+    scale: number;
+    /**
+     * Toggle fullscreen on the canvas
+     */
+    ToggleFullscreen(): void;
+    /**
+     * onResize
+     */
+    onResize(): void;
 }
 declare class Entity {
     /**
@@ -47,10 +92,7 @@ declare class Entity {
     /**
      * The current scene that the Entity is in
      */
-    /**
-     * List of all Groups the Entity is in
-     */
-    groups: string[];
+    scene: Scene;
     constructor();
     /**
      * Called the first time the entity is added to a scene (after constructor, before added)
@@ -68,10 +110,6 @@ declare class Entity {
      * Called immediately whenever the entity is removed from a Scene
      */
     removed(): void;
-    /**
-     * Called immediately whenever the entity is recycled in a Scene
-     */
-    recycled(): void;
     /**
      * Called when an entity is permanently destroyed
      */
@@ -91,6 +129,19 @@ declare class Scene {
      * A list of all the Entities in the Scene
      */
     entities: Entity[];
+    /**
+     * Create a scene object with a given name
+     * @param name Name of the given scene
+     */
+    constructor(name: string);
+    /**
+     * Call the Update method on the entities in this scene
+     */
+    Update(): void;
+    /**
+     * Call the render method on the entities in this scene
+     */
+    Render(): void;
     /**
      * The number of entities in the scene
      */
