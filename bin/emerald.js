@@ -1,3 +1,56 @@
+/**
+ * The Scene contains a list of Entities.
+ * Rendering and Update loop of these Entites is done here.
+ * Multiple scenes can exist at any given time
+ */
+class Scene {
+    /**
+     * Create a scene object with a given name
+     * @param name Name of the given scene
+     */
+    constructor(name) {
+        /**
+         * A list of all the Entities in the Scene
+         */
+        this.entities = [];
+        this.sceneName = name;
+    }
+    /**
+     * Call the Update method on the entities in this scene
+     */
+    Update() {
+        //TODO: Add update methods on the entity script
+    }
+    /**
+     * Call the render method on the entities in this scene
+     */
+    Render() {
+        //TODO: add Render methods on the entity script
+    }
+    /**
+     * The number of entities in the scene
+     */
+    Count() {
+        return this.entities.length;
+    }
+    /**
+     * Add an Entity to the given scene
+     * @param entity the entity to add to the scene
+     */
+    Add(entity) {
+        this.entities.push(entity);
+        return entity;
+    }
+    /**
+     * Remove an Entity from the scene
+     * @param entity the entity to remove from the scene
+     */
+    Remove(entity) {
+        this.entities.push(entity);
+        return entity;
+    }
+}
+/// <reference path="scene.ts"/>
 // the engine
 class Emerald {
     /**
@@ -196,58 +249,6 @@ class Entity {
      * Called when an entity is permanently destroyed
      */
     destroyed() {
-    }
-}
-/**
- * The Scene contains a list of Entities.
- * Rendering and Update loop of these Entites is done here.
- * Multiple scenes can exist at any given time
- */
-class Scene {
-    /**
-     * Create a scene object with a given name
-     * @param name Name of the given scene
-     */
-    constructor(name) {
-        /**
-         * A list of all the Entities in the Scene
-         */
-        this.entities = [];
-        this.sceneName = name;
-    }
-    /**
-     * Call the Update method on the entities in this scene
-     */
-    Update() {
-        //TODO: Add update methods on the entity script
-    }
-    /**
-     * Call the render method on the entities in this scene
-     */
-    Render() {
-        //TODO: add Render methods on the entity script
-    }
-    /**
-     * The number of entities in the scene
-     */
-    Count() {
-        return this.entities.length;
-    }
-    /**
-     * Add an Entity to the given scene
-     * @param entity the entity to add to the scene
-     */
-    Add(entity) {
-        this.entities.push(entity);
-        return entity;
-    }
-    /**
-     * Remove an Entity from the scene
-     * @param entity the entity to remove from the scene
-     */
-    Remove(entity) {
-        this.entities.push(entity);
-        return entity;
     }
 }
 class Vector {

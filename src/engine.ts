@@ -1,3 +1,4 @@
+/// <reference path="scene.ts"/>
 
 // the engine
 class Emerald

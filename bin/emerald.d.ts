@@ -1,3 +1,45 @@
+/**
+ * The Scene contains a list of Entities.
+ * Rendering and Update loop of these Entites is done here.
+ * Multiple scenes can exist at any given time
+ */
+declare class Scene {
+    /**
+     * the name of the scene
+     */
+    sceneName: string;
+    /**
+     * A list of all the Entities in the Scene
+     */
+    entities: Entity[];
+    /**
+     * Create a scene object with a given name
+     * @param name Name of the given scene
+     */
+    constructor(name: string);
+    /**
+     * Call the Update method on the entities in this scene
+     */
+    Update(): void;
+    /**
+     * Call the render method on the entities in this scene
+     */
+    Render(): void;
+    /**
+     * The number of entities in the scene
+     */
+    Count(): number;
+    /**
+     * Add an Entity to the given scene
+     * @param entity the entity to add to the scene
+     */
+    Add(entity: Entity): Entity;
+    /**
+     * Remove an Entity from the scene
+     * @param entity the entity to remove from the scene
+     */
+    Remove(entity: Entity): Entity;
+}
 declare class Emerald {
     static instance: Emerald;
     private name;
@@ -114,48 +156,6 @@ declare class Entity {
      * Called when an entity is permanently destroyed
      */
     destroyed(): void;
-}
-/**
- * The Scene contains a list of Entities.
- * Rendering and Update loop of these Entites is done here.
- * Multiple scenes can exist at any given time
- */
-declare class Scene {
-    /**
-     * the name of the scene
-     */
-    sceneName: string;
-    /**
-     * A list of all the Entities in the Scene
-     */
-    entities: Entity[];
-    /**
-     * Create a scene object with a given name
-     * @param name Name of the given scene
-     */
-    constructor(name: string);
-    /**
-     * Call the Update method on the entities in this scene
-     */
-    Update(): void;
-    /**
-     * Call the render method on the entities in this scene
-     */
-    Render(): void;
-    /**
-     * The number of entities in the scene
-     */
-    Count(): number;
-    /**
-     * Add an Entity to the given scene
-     * @param entity the entity to add to the scene
-     */
-    Add(entity: Entity): Entity;
-    /**
-     * Remove an Entity from the scene
-     * @param entity the entity to remove from the scene
-     */
-    Remove(entity: Entity): Entity;
 }
 declare class Vector {
     x: number;

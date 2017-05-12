@@ -6,3 +6,6 @@ Scenes - contain entities which call the Render and Update methods on those enti
 Entites - contain the base framework for an object in a scene. position, etc. 
 
 I cannot decide if I want different entity types such as iParticle, iShape, iSprite that entites can extend in order to get more features or if I should add components to entities that give those features.
+
+// Debug layout
+Similar to Flixel I would like to have a debugger that overlays the screen with ~ key. But if its a webbased game this won't be needed. Hm... 
